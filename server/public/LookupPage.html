@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <title>LookupPage</title>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+
+<body>
+
+  <!-- 예제 시작 -->
+
+  <!-- 사용한 clientId 키는 localhost 에서도 테스트 할 수 있습니다. -->
+  <script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=v6uq3Nmidx6gdSOddr1A"></script>
+
+  <!-- 지도가 생성되는 div 영역, id 는 naverMap 으로 설정 -->
+  <div>
+    <div style="width:100%;position:relative">
+      <div style="border: 0px solid gold; float: left; width: 50%; margin-bottom:100px; margin-top:50px">
+        <div style="text-align:center; font-weight:900; font-size:37px"><h1>집배원 정보</h1></div>
+        <div style="width:200px; height:400px">
+          <img src="images/screens.jpg" style="width:200px; height:300px; margin-left:100px"/>
+        </div>
+      </div>
+      <div style="border: 0px solid gold; float: left; width: 50%; margin-bottom:100px; margin-top:50px">
+            <div style="text-align:center; font-weight:900; font-size:37px"><h1>GPS Location</h1></div>
+            <div id="naverMap" style="width:600px; height:400px; margin:auto"></div>
+      </div>
+    </div>
+  </div>
+
+    <div style="width:100%;position:relative">
+      <div class="container" style="border: 0px solid gold; float: left; width: 50%;">
+        <div style="text-align:center; font-weight:900; font-size:37px"><h1>차내 온도</h1></div>
+          <div style="width:600px; height:400px; margin-left:50px"><canvas id="myChart1"></canvas></div>
+      </div>
+        <script>
+            var ctx = document.getElementById('myChart1').getContext("2d");
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL"],
+                    datasets: [{
+                        label: "Data",
+                        borderColor: "#80b6f4",
+                        pointBorderColor: "#80b6f4",
+                        pointBackgroundColor: "#80b6f4",
+                        pointHoverBackgroundColor: "#80b6f4",
+                        pointHoverBorderColor: "#80b6f4",
+                        pointBorderWidth: 10,
+                        pointHoverRadius: 10,
+                        pointHoverBorderWidth: 1,
+                        pointRadius: 3,
+                        fill: false,
+                        borderWidth: 4,
+                        data: [100, 120, 150, 170, 180, 170, 160]
+                    }]
+                },
+                options: {
+                    legend: {
+                        position: "bottom"
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                fontColor: "rgba(0,0,0,0.5)",
+                                fontStyle: "bold",
+                                beginAtZero: true,
+                                maxTicksLimit: 5,
+                                padding: 20
+                            },
+                            gridLines: {
+                                drawTicks: false,
+                                display: false
+                            }
+            }],
+                        xAxes: [{
+                            gridLines: {
+                                zeroLineColor: "transparent"
+            },
+                            ticks: {
+                                padding: 20,
+                                fontColor: "rgba(0,0,0,0.5)",
+                                fontStyle: "bold"
+                            }
+                        }]
+                    }
+                }
+            });
+        </script>
+      <div class="container" style="border: 0px solid gold; float: left; width: 50%;">
+        <div style="text-align:center; font-weight:900; font-size:37px"><h1>차내 습도</h1></div>
+          <div style="width:600px; height:400px; margin-left:50px"><canvas id="myChart2"></canvas></div>
+      </div>
+        <script>
+              var ctx = document.getElementById('myChart2').getContext("2d");
+              var myChart = new Chart(ctx, {
+                  type: 'line',
+                  data: {
+                      labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL"],
+                      datasets: [{
+                          label: "Data",
+                          borderColor: "#80b6f4",
+                          pointBorderColor: "#80b6f4",
+                          pointBackgroundColor: "#80b6f4",
+                          pointHoverBackgroundColor: "#80b6f4",
+                          pointHoverBorderColor: "#80b6f4",
+                          pointBorderWidth: 10,
+                          pointHoverRadius: 10,
+                          pointHoverBorderWidth: 1,
+                          pointRadius: 3,
+                          fill: false,
+                          borderWidth: 4,
+                          data: [100, 120, 150, 170, 180, 170, 160]
+                      }]
+                  },
+                  options: {
+                      legend: {
+                          position: "bottom"
+                      },
+                      scales: {
+                          yAxes: [{
+                              ticks: {
+                                  fontColor: "rgba(0,0,0,0.5)",
+                                  fontStyle: "bold",
+                                  beginAtZero: true,
+                                  maxTicksLimit: 5,
+                                  padding: 20
+                              },
+                              gridLines: {
+                                  drawTicks: false,
+                                  display: false
+                              }
+              }],
+                          xAxes: [{
+                              gridLines: {
+                                  zeroLineColor: "transparent"
+              },
+                              ticks: {
+                                  padding: 20,
+                                  fontColor: "rgba(0,0,0,0.5)",
+                                  fontStyle: "bold"
+                              }
+                          }]
+                      }
+                  }
+              });
+          </script>
+    </div>
+
+  <script>
+    var map = new naver.maps.Map('naverMap', { // naverMap 값은 div 의 id 값
+      center: new naver.maps.LatLng(37.5782709, 126.9770043), // 지도 중앙 위치 : 위도, 경도 설정
+      zoom: 10, // 줌 설정 : 1~14, 수치가 클수록 지도 확대(줌인), 이 옵션 생략시 기본값 9
+      zoomControl: true, // 줌 컨트롤 표시 (기본값 표시안함)
+      zoomControlOptions: { // 줌 컨트롤 오른쪽 위로 위치 설정
+        position: naver.maps.Position.TOP_RIGHT // 오른쪽 위로 설정값
+      },
+      mapTypeControl: true, // 일반ㆍ위성 지도보기 컨트롤 표시 (기본값 표시안함)
+    });
+
+    var marker = new naver.maps.Marker({
+      position: new naver.maps.LatLng(37.5782709, 126.9770043),
+      map: map
+    });
+  </script>
+
+</body>
+
+</html>
